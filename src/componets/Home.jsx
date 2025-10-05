@@ -4,6 +4,7 @@ import RTX4070TISuperAsus from '../../public/graphics_card/Asus RTX 4070 TI supe
 import AMDRyzen77800X3D from '../../public/processor/AMDRyzen77800X3D.jpg'
 import CorsairVengeance32GB from '../../public/RAM_memory/CorsairVengeance32GB.jpg'
 import Samsung990PRO2TB from '../../public/Storage/Samsung990PRO2TB.jpg'
+import { Link } from "react-router-dom";
 
 function Home() {
   const [darkMode, setDarkMode] = useState(true);
@@ -351,7 +352,7 @@ function Home() {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
               <a href="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</a>
-              <a href="/Productos" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</a>
+              <Link to="/Productos" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</Link>
               <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ofertas</a>
               <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</a>
             </nav>
