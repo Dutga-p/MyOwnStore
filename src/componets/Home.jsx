@@ -5,29 +5,27 @@ import AMDRyzen77800X3D from '../../public/processor/AMDRyzen77800X3D.jpg'
 import CorsairVengeance32GB from '../../public/RAM_memory/CorsairVengeance32GB.jpg'
 import Samsung990PRO2TB from '../../public/Storage/Samsung990PRO2TB.jpg'
 import { Link } from "react-router-dom";
+import { useTheme } from "./hooks/useTheme";
+import { useCart } from "./hooks/useCart";
 
 function Home() {
-  const [darkMode, setDarkMode] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [cart, setCart] = useState([]);
-  const [notification, setNotification] = useState(null);
-
-  // Toggle dark mode
-  const dark = () => {
-    setDarkMode(!darkMode);
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }
-
-  // Mostrar notificación temporal
-  const showNotification = (message, type = 'success') => {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3000);
-  };
+  const { darkMode, toggleDarkMode } = useTheme();
+  const { 
+    cart, 
+    notification, 
+    addToCart, 
+    removeFromCart, 
+    updateQuantity, 
+    clearCart,
+    getItemSubtotal,
+    getCartTotal,
+    getCartCount,
+    getShippingCost,
+    getFinalTotal,
+    handleCheckout
+  } = useCart();
 
   const categories = [
     { name: "Tarjetas Gráficas", icon: "🎮", color: "from-purple-500 to-pink-500" },
@@ -51,123 +49,6 @@ function Home() {
     { icon: CreditCard, text: "Multiples modos de pago", desc: "Nequi, Bancolombia, Efectivo" },
     { icon: Award, text: "Garantía", desc: "6 meses en productos" }
   ];
-
-  // ========== LÓGICA DEL CARRITO ==========
-  
-  // Agregar producto al carrito
-  const addToCart = (product) => {
-    if (product.stock === 0) {
-      showNotification('Producto agotado', 'error');
-      return;
-    }
-
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === product.id);
-      
-      if (existingItem) {
-        // Si ya existe, aumentar cantidad (validando stock)
-        if (existingItem.quantity >= product.stock) {
-          showNotification(`Stock máximo: ${product.stock} unidades`, 'error');
-          return prevCart;
-        }
-        showNotification(`${product.name} agregado al carrito`, 'success');
-        return prevCart.map(item =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        // Si no existe, agregarlo
-        showNotification(`${product.name} agregado al carrito`, 'success');
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
-  };
-
-  // Eliminar producto del carrito
-  const removeFromCart = (productId) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== productId));
-    showNotification('Producto eliminado', 'success');
-  };
-
-  // Actualizar cantidad de un producto
-  const updateQuantity = (productId, newQuantity) => {
-    const product = featuredProducts.find(p => p.id === productId);
-    
-    if (newQuantity <= 0) {
-      removeFromCart(productId);
-      return;
-    }
-
-    if (newQuantity > product.stock) {
-      showNotification(`Stock máximo: ${product.stock} unidades`, 'error');
-      return;
-    }
-
-    setCart(prevCart =>
-      prevCart.map(item =>
-        item.id === productId
-          ? { ...item, quantity: newQuantity }
-          : item
-      )
-    );
-  };
-
-  // Vaciar carrito
-  const clearCart = () => {
-    setCart([]);
-    showNotification('Carrito vaciado', 'success');
-  };
-
-  // Calcular subtotal de un item
-  const getItemSubtotal = (item) => {
-    return item.price * item.quantity;
-  };
-
-  // Calcular total del carrito
-  const getCartTotal = () => {
-    return cart.reduce((total, item) => total + getItemSubtotal(item), 0);
-  };
-
-  // Calcular total de items en el carrito
-  const getCartCount = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0);
-  };
-
-  // Calcular envío (gratis si supera 399.999 COP que es aprox $100 USD)
-  const getShippingCost = () => {
-    const total = getCartTotal();
-    return total >= 100 ? 0 : 15;
-  };
-
-  // Calcular total final
-  const getFinalTotal = () => {
-    return getCartTotal() + getShippingCost();
-  };
-
-  // Procesar compra (simulado)
-  const handleCheckout = () => {
-    if (cart.length === 0) {
-      showNotification('El carrito está vacío', 'error');
-      return;
-    }
-    
-    // Aquí iría la lógica de integración con pasarela de pago
-    showNotification('Redirigiendo a pago...', 'success');
-    console.log('Procesando compra:', {
-      items: cart,
-      subtotal: getCartTotal(),
-      shipping: getShippingCost(),
-      total: getFinalTotal()
-    });
-    
-    // Simular checkout
-    setTimeout(() => {
-      clearCart();
-      setCartOpen(false);
-      showNotification('¡Compra simulada con éxito!', 'success');
-    }, 1500);
-  };
 
   return (
     <div id="main" className="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
@@ -351,7 +232,7 @@ function Home() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
-              <a href="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</a>
+              <Link href="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</Link>
               <Link to="/Productos" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</Link>
               <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ofertas</a>
               <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</a>
@@ -364,7 +245,7 @@ function Home() {
               </button>
               
               <button 
-                onClick={dark} 
+                onClick={toggleDarkMode} 
                 className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 {darkMode ? <Sun size={20}/> : <Moon size={20}/>}

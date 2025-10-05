@@ -1,14 +1,28 @@
 import { useState } from "react";
-import { Sun, Moon, ShoppingCart, Search, Shield, Truck, CreditCard, Award, Star, ChevronRight, Menu, X, Plus, Minus, Trash2, ShoppingBag, Filter, SlidersHorizontal, Grid3x3, List, ChevronDown } from "lucide-react";
+import { Sun, Moon, ShoppingCart, Search, Star, ChevronRight, Menu, X, Plus, Minus, Trash2, ShoppingBag, Filter, SlidersHorizontal, Grid3x3, List, ChevronDown } from "lucide-react";
+import { useTheme } from "./hooks/useTheme";
+import { useCart } from "./hooks/useCart";
 
 function Products() {
-  const [darkMode, setDarkMode] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [cart, setCart] = useState([]);
-  const [notification, setNotification] = useState(null);
   const [viewMode, setViewMode] = useState('grid'); // grid or list
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const { darkMode, toggleDarkMode } = useTheme();
+  const { 
+    cart, 
+    notification, 
+    addToCart, 
+    removeFromCart, 
+    updateQuantity, 
+    clearCart,
+    getItemSubtotal,
+    getCartTotal,
+    getCartCount,
+    getShippingCost,
+    getFinalTotal,
+    handleCheckout
+  } = useCart();
   
   // Filtros
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -16,20 +30,6 @@ function Products() {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [sortBy, setSortBy] = useState('featured');
   const [inStock, setInStock] = useState(false);
-
-  const dark = () => {
-    setDarkMode(!darkMode);
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }
-
-  const showNotification = (message, type = 'success') => {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3000);
-  };
 
   const categories = [
     { id: 'all', name: "Todos", count: 24 },
@@ -95,76 +95,6 @@ function Products() {
     setSelectedBrands([]);
     setSortBy('featured');
     setInStock(false);
-  };
-
-  // Funciones del carrito (iguales que en Home)
-  const addToCart = (product) => {
-    if (product.stock === 0) {
-      showNotification('Producto agotado', 'error');
-      return;
-    }
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === product.id);
-      if (existingItem) {
-        if (existingItem.quantity >= product.stock) {
-          showNotification(`Stock máximo: ${product.stock} unidades`, 'error');
-          return prevCart;
-        }
-        showNotification(`${product.name} agregado al carrito`, 'success');
-        return prevCart.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      } else {
-        showNotification(`${product.name} agregado al carrito`, 'success');
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
-  };
-
-  const removeFromCart = (productId) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== productId));
-    showNotification('Producto eliminado', 'success');
-  };
-
-  const updateQuantity = (productId, newQuantity) => {
-    const product = allProducts.find(p => p.id === productId);
-    if (newQuantity <= 0) {
-      removeFromCart(productId);
-      return;
-    }
-    if (newQuantity > product.stock) {
-      showNotification(`Stock máximo: ${product.stock} unidades`, 'error');
-      return;
-    }
-    setCart(prevCart =>
-      prevCart.map(item =>
-        item.id === productId ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const clearCart = () => {
-    setCart([]);
-    showNotification('Carrito vaciado', 'success');
-  };
-
-  const getItemSubtotal = (item) => item.price * item.quantity;
-  const getCartTotal = () => cart.reduce((total, item) => total + getItemSubtotal(item), 0);
-  const getCartCount = () => cart.reduce((total, item) => total + item.quantity, 0);
-  const getShippingCost = () => getCartTotal() >= 100 ? 0 : 15;
-  const getFinalTotal = () => getCartTotal() + getShippingCost();
-
-  const handleCheckout = () => {
-    if (cart.length === 0) {
-      showNotification('El carrito está vacío', 'error');
-      return;
-    }
-    showNotification('Redirigiendo a pago...', 'success');
-    setTimeout(() => {
-      clearCart();
-      setCartOpen(false);
-      showNotification('¡Compra simulada con éxito!', 'success');
-    }, 1500);
   };
 
   return (
@@ -346,7 +276,7 @@ function Products() {
               </button>
               
               <button 
-                onClick={dark} 
+                onClick={toggleDarkMode} 
                 className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 {darkMode ? <Sun size={20}/> : <Moon size={20}/>}
