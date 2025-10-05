@@ -37,10 +37,10 @@ function Home() {
   ];
 
   const featuredProducts = [
-    { id: 1, name: "RTX 4070 Ti SUPER", price: 899.99, rating: 4.8, reviews: 234, stock: 15, img: RTX4070TISuperAsus },
-    { id: 2, name: "AMD Ryzen 7 7800X3D", price: 449.99, rating: 4.9, reviews: 567, stock: 8, img: AMDRyzen77800X3D},
-    { id: 3, name: "Corsair Vengeance 32GB", price: 129.99, rating: 4.7, reviews: 892, stock: 25, img: CorsairVengeance32GB},
-    { id: 4, name: "Samsung 990 PRO 2TB", price: 199.99, rating: 4.9, reviews: 445, stock: 0, img: Samsung990PRO2TB}
+    { id: 1, name: "RTX 4070 Ti SUPER", price: 3500000, rating: 4.8, reviews: 234, stock: 15, img: RTX4070TISuperAsus },
+    { id: 2, name: "AMD Ryzen 7 7800X3D", price: 1748000, rating: 4.9, reviews: 567, stock: 8, img: AMDRyzen77800X3D},
+    { id: 3, name: "Corsair Vengeance 32GB", price: 505000, rating: 4.7, reviews: 892, stock: 25, img: CorsairVengeance32GB},
+    { id: 4, name: "Samsung 990 PRO 2TB", price: 777000, rating: 4.9, reviews: 445, stock: 0, img: Samsung990PRO2TB}
   ];
 
   const trustBadges = [
@@ -115,7 +115,7 @@ function Home() {
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-sm mb-1 truncate">{item.name}</h4>
                       <p className="text-blue-600 dark:text-blue-400 font-bold text-sm mb-2">
-                        ${item.price.toFixed(2)}
+                        ${item.price.toLocaleString('es-CO')}
                       </p>
                       
                       {/* Controles de cantidad */}
@@ -149,7 +149,7 @@ function Home() {
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-sm">
-                        ${getItemSubtotal(item).toFixed(2)}
+                        ${getItemSubtotal(item).toLocaleString('es-CO')}
                       </p>
                     </div>
                   </div>
@@ -173,7 +173,7 @@ function Home() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
-                  <span className="font-semibold">${getCartTotal().toFixed(2)}</span>
+                  <span className="font-semibold">${getCartTotal().toLocaleString('es-CO')}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Envío</span>
@@ -181,7 +181,7 @@ function Home() {
                     {getShippingCost() === 0 ? (
                       <span className="text-green-600 dark:text-green-400">¡Gratis!</span>
                     ) : (
-                      `$${getShippingCost().toFixed(2)}`
+                      `$${getShippingCost().toLocaleString('es-CO')}`
                     )}
                   </span>
                 </div>
@@ -193,7 +193,7 @@ function Home() {
                 <div className="flex justify-between text-base pt-2 border-t border-gray-200 dark:border-gray-800">
                   <span className="font-bold">Total</span>
                   <span className="font-bold text-blue-600 dark:text-blue-400">
-                    ${getFinalTotal().toFixed(2)}
+                    ${getFinalTotal().toLocaleString('es-CO')}
                   </span>
                 </div>
               </div>
@@ -414,10 +414,10 @@ function Home() {
                   
                   <div className="flex items-baseline gap-2 mb-4">
                     <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                      ${product.price}
+                      ${Number(product.price).toLocaleString('es-CO')}
                     </span>
                     <span className="text-sm text-gray-500 line-through">
-                      ${(product.price * 1.2).toFixed(2)}
+                      ${Math.round(Number(product.price) * 1.2).toLocaleString('es-CO')}
                     </span>
                   </div>
                   

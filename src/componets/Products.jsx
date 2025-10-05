@@ -26,7 +26,7 @@ function Products() {
   
   // Filtros
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [priceRange, setPriceRange] = useState([0, 2000]);
+  const [priceRange, setPriceRange] = useState([0, 20000000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [sortBy, setSortBy] = useState('featured');
   const [inStock, setInStock] = useState(false);
@@ -43,22 +43,22 @@ function Products() {
   const brands = ['NVIDIA', 'AMD', 'Intel', 'Corsair', 'Samsung', 'ASUS', 'MSI', 'Gigabyte'];
 
   const allProducts = [
-    { id: 1, name: "RTX 4070 Ti SUPER", category: 'gpu', brand: 'NVIDIA', price: 899.99, rating: 4.8, reviews: 234, stock: 15, img: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400" },
-    { id: 2, name: "AMD Ryzen 7 7800X3D", category: 'cpu', brand: 'AMD', price: 449.99, rating: 4.9, reviews: 567, stock: 8, img: "https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400" },
-    { id: 3, name: "Corsair Vengeance 32GB", category: 'ram', brand: 'Corsair', price: 129.99, rating: 4.7, reviews: 892, stock: 25, img: "https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?w=400" },
-    { id: 4, name: "Samsung 990 PRO 2TB", category: 'storage', brand: 'Samsung', price: 199.99, rating: 4.9, reviews: 445, stock: 0, img: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400" },
-    { id: 5, name: "RTX 4080 SUPER", category: 'gpu', brand: 'NVIDIA', price: 1199.99, rating: 4.9, reviews: 189, stock: 5, img: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400" },
-    { id: 6, name: "Intel Core i9-14900K", category: 'cpu', brand: 'Intel', price: 589.99, rating: 4.7, reviews: 321, stock: 12, img: "https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400" },
-    { id: 7, name: "G.Skill Trident Z5 64GB", category: 'ram', brand: 'Corsair', price: 249.99, rating: 4.8, reviews: 156, stock: 18, img: "https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?w=400" },
-    { id: 8, name: "WD Black SN850X 4TB", category: 'storage', brand: 'Samsung', price: 399.99, rating: 4.8, reviews: 278, stock: 7, img: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400" },
-    { id: 9, name: "RTX 4060 Ti", category: 'gpu', brand: 'NVIDIA', price: 449.99, rating: 4.6, reviews: 412, stock: 22, img: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400" },
-    { id: 10, name: "AMD Ryzen 5 7600X", category: 'cpu', brand: 'AMD', price: 299.99, rating: 4.7, reviews: 534, stock: 15, img: "https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400" },
-    { id: 11, name: "Kingston Fury 16GB", category: 'ram', brand: 'Corsair', price: 79.99, rating: 4.5, reviews: 621, stock: 30, img: "https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?w=400" },
-    { id: 12, name: "Crucial P5 Plus 1TB", category: 'storage', brand: 'Samsung', price: 129.99, rating: 4.6, reviews: 389, stock: 20, img: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400" },
-    { id: 13, name: "ASUS ROG Strix Z790", category: 'motherboard', brand: 'ASUS', price: 399.99, rating: 4.8, reviews: 167, stock: 8, img: "https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=400" },
-    { id: 14, name: "MSI MAG B650", category: 'motherboard', brand: 'MSI', price: 249.99, rating: 4.7, reviews: 234, stock: 11, img: "https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=400" },
-    { id: 15, name: "RTX 4090", category: 'gpu', brand: 'NVIDIA', price: 1799.99, rating: 5.0, reviews: 145, stock: 3, img: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400" },
-    { id: 16, name: "AMD Ryzen 9 7950X3D", category: 'cpu', brand: 'AMD', price: 699.99, rating: 4.9, reviews: 278, stock: 6, img: "https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400" },
+    { id: 1, name: "RTX 4070 Ti SUPER", category: 'gpu', brand: 'NVIDIA', price: 3500000, rating: 4.8, reviews: 234, stock: 15, img: "../../public/graphics_card/Asus RTX 4070 TI super.jpg" },
+    { id: 2, name: "AMD Ryzen 7 7800X3D", category: 'cpu', brand: 'AMD', price: 1748000, rating: 4.9, reviews: 567, stock: 8, img: "../../public/processor/AMDRyzen77800X3D.jpg" },
+    { id: 3, name: "Corsair Vengeance 32GB", category: 'ram', brand: 'Corsair', price: 505000, rating: 4.7, reviews: 892, stock: 25, img: "../../public/RAM_memory/CorsairVengeance32GB.jpg" },
+    { id: 4, name: "Samsung 990 PRO 2TB", category: 'storage', brand: 'Samsung', price: 777000, rating: 4.9, reviews: 445, stock: 0, img: "../../public/Storage/Samsung990PRO2TB.jpg" },
+    { id: 5, name: "RTX 4080 SUPER", category: 'gpu', brand: 'NVIDIA', price: 4661000, rating: 4.9, reviews: 189, stock: 5, img: "../../public/graphics_card/RTX4080SUPER.png" },
+    { id: 6, name: "Intel Core i9-14900K", category: 'cpu', brand: 'Intel', price: 2292000, rating: 4.7, reviews: 321, stock: 12, img: "../../public/processor/INTELi914900k.png" },
+    { id: 7, name: "G.Skill Trident Z5 64GB", category: 'ram', brand: 'Corsair', price: 972000, rating: 4.8, reviews: 156, stock: 18, img: "../../public/RAM_memory/G.SkillTridentZ564GB.png" },
+    { id: 8, name: "WD Black SN850X 4TB", category: 'storage', brand: 'Samsung', price: 1554000, rating: 4.8, reviews: 278, stock: 7, img: "../../public/Storage/WDBlackSN850X4TB.png" },
+    { id: 9, name: "RTX 4060 Ti", category: 'gpu', brand: 'NVIDIA', price: 1748000, rating: 4.6, reviews: 412, stock: 22, img: "../../public/graphics_card/RTX4060Ti.png" },
+    { id: 10, name: "AMD Ryzen 5 7600X", category: 'cpu', brand: 'AMD', price: 1166000, rating: 4.7, reviews: 534, stock: 15, img: "../../public/processor/AMDRyzen57600X.png" },
+    { id: 11, name: "Kingston Fury 16GB", category: 'ram', brand: 'Corsair', price: 311000, rating: 4.5, reviews: 621, stock: 30, img: "../../public/RAM_memory/KingstonFury16GB.png" },
+    { id: 12, name: "Crucial P5 Plus 1TB", category: 'storage', brand: 'Samsung', price: 505000, rating: 4.6, reviews: 389, stock: 20, img: "../../public/Storage/CrucialP5Plus1TB.png" },
+    { id: 13, name: "ASUS ROG Strix Z790", category: 'motherboard', brand: 'ASUS', price: 1554000, rating: 4.8, reviews: 167, stock: 8, img: "../../public/motherboard/ASUSROGStrixZ790.png" },
+    { id: 14, name: "MSI MAG B650", category: 'motherboard', brand: 'MSI', price: 972000, rating: 4.7, reviews: 234, stock: 11, img: "../../public/motherboard/MSIMAGB650.png" },
+    { id: 15, name: "RTX 4090", category: 'gpu', brand: 'NVIDIA', price: 6662000, rating: 5.0, reviews: 145, stock: 3, img: "../../public/graphics_card/RTX4090.png" },
+    { id: 16, name: "AMD Ryzen 9 7950X3D", category: 'cpu', brand: 'AMD', price: 1719000, rating: 4.9, reviews: 278, stock: 6, img: "../../public/processor/AMDRyzen97950X3D.png" },
   ];
 
   // Aplicar filtros
@@ -160,7 +160,7 @@ function Products() {
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-sm mb-1 truncate">{item.name}</h4>
                       <p className="text-blue-600 dark:text-blue-400 font-bold text-sm mb-2">
-                        ${item.price.toFixed(2)}
+                        ${item.price.toLocaleString('es-CO')}
                       </p>
                       
                       <div className="flex items-center gap-2">
@@ -189,7 +189,7 @@ function Products() {
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-sm">
-                        ${getItemSubtotal(item).toFixed(2)}
+                        ${getItemSubtotal(item).toLocaleString('es-CO')}
                       </p>
                     </div>
                   </div>
@@ -212,7 +212,7 @@ function Products() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
-                  <span className="font-semibold">${getCartTotal().toFixed(2)}</span>
+                  <span className="font-semibold">${getCartTotal().toLocaleString('es-CO')}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Envío</span>
@@ -220,14 +220,14 @@ function Products() {
                     {getShippingCost() === 0 ? (
                       <span className="text-green-600 dark:text-green-400">¡Gratis!</span>
                     ) : (
-                      `$${getShippingCost().toFixed(2)}`
+                      `$${getShippingCost().toLocaleString('es-CO')}`
                     )}
                   </span>
                 </div>
                 <div className="flex justify-between text-base pt-2 border-t border-gray-200 dark:border-gray-800">
                   <span className="font-bold">Total</span>
                   <span className="font-bold text-blue-600 dark:text-blue-400">
-                    ${getFinalTotal().toFixed(2)}
+                    ${getFinalTotal().toLocaleString('es-CO')}
                   </span>
                 </div>
               </div>
@@ -675,10 +675,9 @@ function Products() {
                       
                       <div className="flex items-baseline gap-2 mb-4">
                         <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                          ${product.price}
-                        </span>
+                          ${Number(product.price).toLocaleString('es-CO')}                        </span>
                         <span className="text-sm text-gray-500 line-through">
-                          ${(product.price * 1.2).toFixed(2)}
+                          ${Math.round(Number(product.price) * 1.2).toLocaleString('es-CO')}
                         </span>
                       </div>
                       
@@ -749,10 +748,9 @@ function Products() {
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                           <div className="flex items-baseline gap-2">
                             <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                              ${product.price}
-                            </span>
+                              {new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(product.price)}                            </span>
                             <span className="text-base text-gray-500 line-through">
-                              ${(product.price * 1.2).toFixed(2)}
+                              {new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(product.price * 1.2)}
                             </span>
                           </div>
 
