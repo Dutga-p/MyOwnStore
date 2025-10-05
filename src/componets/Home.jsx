@@ -350,8 +350,8 @@ function Home() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
-              <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</a>
-              <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</a>
+              <a href="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</a>
+              <a href="/Productos" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</a>
               <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ofertas</a>
               <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</a>
             </nav>
@@ -566,7 +566,7 @@ function Home() {
             <input 
               type="email" 
               placeholder="tu@email.com"
-              className="flex-1 px-6 py-4 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+              className="flex-1 ring-1 ring-white px-6 py-4 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-white"
             />
             <button className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:shadow-xl transition-shadow whitespace-nowrap">
               Suscribirme
