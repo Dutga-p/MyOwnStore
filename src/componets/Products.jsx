@@ -2,6 +2,22 @@ import { useState } from "react";
 import { Sun, Moon, ShoppingCart, Search, Star, ChevronRight, Menu, X, Plus, Minus, Trash2, ShoppingBag, Filter, SlidersHorizontal, Grid3x3, List, ChevronDown } from "lucide-react";
 import { useTheme } from "./hooks/useTheme";
 import { useCart } from "./hooks/useCart";
+import AsusRTX4070TISuper from '../../public/graphics_card/Asus RTX 4070 TI super.jpg'
+import AMDRyzen77800X3D from "../../public/processor/AMDRyzen77800X3D.jpg";
+import CorsairVengeance32GB from "../../public/RAM_memory/CorsairVengeance32GB.jpg";
+import Samsung990PRO2TB from "../../public/Storage/Samsung990PRO2TB.jpg";
+import RTX4080SUPER from "../../public/graphics_card/RTX4080SUPER.png";
+import INTELi914900k from "../../public/processor/INTELi914900k.png";
+import GSkillTridentZ564GB from "../../public/RAM_memory/GSkillTridentZ564GB.png";
+import WDBlackSN850X4TB from "../../public/Storage/WDBlackSN850X4TB.png";
+import RTX4060Ti from "../../public/graphics_card/RTX4060Ti.png";
+import AMDRyzen57600X from "../../public/processor/AMDRyzen57600X.png";
+import KingstonFury16GB from "../../public/RAM_memory/KingstonFury16GB.png";
+import CrucialP5Plus1TB from "../../public/Storage/CrucialP5Plus1TB.png";
+import ASUSROGStrixZ790 from "../../public/motherboard/ASUSROGStrixZ790.png";
+import MSIMAGB650 from "../../public/motherboard/MSIMAGB650.png";
+import RTX4090 from "../../public/graphics_card/RTX4090.png";
+import AMDRyzen97950X3D from "../../public/processor/AMDRyzen97950X3D.png";
 
 function Products() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -43,22 +59,22 @@ function Products() {
   const brands = ['NVIDIA', 'AMD', 'Intel', 'Corsair', 'Samsung', 'ASUS', 'MSI', 'Gigabyte'];
 
   const allProducts = [
-    { id: 1, name: "RTX 4070 Ti SUPER", category: 'gpu', brand: 'NVIDIA', price: 3500000, rating: 4.8, reviews: 234, stock: 15, img: "../../public/graphics_card/Asus RTX 4070 TI super.jpg" },
-    { id: 2, name: "AMD Ryzen 7 7800X3D", category: 'cpu', brand: 'AMD', price: 1748000, rating: 4.9, reviews: 567, stock: 8, img: "../../public/processor/AMDRyzen77800X3D.jpg" },
-    { id: 3, name: "Corsair Vengeance 32GB", category: 'ram', brand: 'Corsair', price: 505000, rating: 4.7, reviews: 892, stock: 25, img: "../../public/RAM_memory/CorsairVengeance32GB.jpg" },
-    { id: 4, name: "Samsung 990 PRO 2TB", category: 'storage', brand: 'Samsung', price: 777000, rating: 4.9, reviews: 445, stock: 0, img: "../../public/Storage/Samsung990PRO2TB.jpg" },
-    { id: 5, name: "RTX 4080 SUPER", category: 'gpu', brand: 'NVIDIA', price: 4661000, rating: 4.9, reviews: 189, stock: 5, img: "../../public/graphics_card/RTX4080SUPER.png" },
-    { id: 6, name: "Intel Core i9-14900K", category: 'cpu', brand: 'Intel', price: 2292000, rating: 4.7, reviews: 321, stock: 12, img: "../../public/processor/INTELi914900k.png" },
-    { id: 7, name: "G.Skill Trident Z5 64GB", category: 'ram', brand: 'Corsair', price: 972000, rating: 4.8, reviews: 156, stock: 18, img: "../../public/RAM_memory/G.SkillTridentZ564GB.png" },
-    { id: 8, name: "WD Black SN850X 4TB", category: 'storage', brand: 'Samsung', price: 1554000, rating: 4.8, reviews: 278, stock: 7, img: "../../public/Storage/WDBlackSN850X4TB.png" },
-    { id: 9, name: "RTX 4060 Ti", category: 'gpu', brand: 'NVIDIA', price: 1748000, rating: 4.6, reviews: 412, stock: 22, img: "../../public/graphics_card/RTX4060Ti.png" },
-    { id: 10, name: "AMD Ryzen 5 7600X", category: 'cpu', brand: 'AMD', price: 1166000, rating: 4.7, reviews: 534, stock: 15, img: "../../public/processor/AMDRyzen57600X.png" },
-    { id: 11, name: "Kingston Fury 16GB", category: 'ram', brand: 'Corsair', price: 311000, rating: 4.5, reviews: 621, stock: 30, img: "../../public/RAM_memory/KingstonFury16GB.png" },
-    { id: 12, name: "Crucial P5 Plus 1TB", category: 'storage', brand: 'Samsung', price: 505000, rating: 4.6, reviews: 389, stock: 20, img: "../../public/Storage/CrucialP5Plus1TB.png" },
-    { id: 13, name: "ASUS ROG Strix Z790", category: 'motherboard', brand: 'ASUS', price: 1554000, rating: 4.8, reviews: 167, stock: 8, img: "../../public/motherboard/ASUSROGStrixZ790.png" },
-    { id: 14, name: "MSI MAG B650", category: 'motherboard', brand: 'MSI', price: 972000, rating: 4.7, reviews: 234, stock: 11, img: "../../public/motherboard/MSIMAGB650.png" },
-    { id: 15, name: "RTX 4090", category: 'gpu', brand: 'NVIDIA', price: 6662000, rating: 5.0, reviews: 145, stock: 3, img: "../../public/graphics_card/RTX4090.png" },
-    { id: 16, name: "AMD Ryzen 9 7950X3D", category: 'cpu', brand: 'AMD', price: 1719000, rating: 4.9, reviews: 278, stock: 6, img: "../../public/processor/AMDRyzen97950X3D.png" },
+    { id: 1, name: "RTX 4070 Ti SUPER", category: 'gpu', brand: 'NVIDIA', price: 3500000, rating: 4.8, reviews: 234, stock: 15, img: AsusRTX4070TISuper },
+    { id: 2, name: "AMD Ryzen 7 7800X3D", category: 'cpu', brand: 'AMD', price: 1748000, rating: 4.9, reviews: 567, stock: 8, img: AMDRyzen77800X3D },
+    { id: 3, name: "Corsair Vengeance 32GB", category: 'ram', brand: 'Corsair', price: 505000, rating: 4.7, reviews: 892, stock: 25, img: CorsairVengeance32GB },
+    { id: 4, name: "Samsung 990 PRO 2TB", category: 'storage', brand: 'Samsung', price: 777000, rating: 4.9, reviews: 445, stock: 0, img: Samsung990PRO2TB },
+    { id: 5, name: "RTX 4080 SUPER", category: 'gpu', brand: 'NVIDIA', price: 4661000, rating: 4.9, reviews: 189, stock: 5, img: RTX4080SUPER },
+    { id: 6, name: "Intel Core i9-14900K", category: 'cpu', brand: 'Intel', price: 2292000, rating: 4.7, reviews: 321, stock: 12, img: INTELi914900k },
+    { id: 7, name: "G.Skill Trident Z5 64GB", category: 'ram', brand: 'Corsair', price: 972000, rating: 4.8, reviews: 156, stock: 18, img: GSkillTridentZ564GB },
+    { id: 8, name: "WD Black SN850X 4TB", category: 'storage', brand: 'Samsung', price: 1554000, rating: 4.8, reviews: 278, stock: 7, img: WDBlackSN850X4TB },
+    { id: 9, name: "RTX 4060 Ti", category: 'gpu', brand: 'NVIDIA', price: 1748000, rating: 4.6, reviews: 412, stock: 22, img: RTX4060Ti },
+    { id: 10, name: "AMD Ryzen 5 7600X", category: 'cpu', brand: 'AMD', price: 1166000, rating: 4.7, reviews: 534, stock: 15, img: AMDRyzen57600X },
+    { id: 11, name: "Kingston Fury 16GB", category: 'ram', brand: 'Corsair', price: 311000, rating: 4.5, reviews: 621, stock: 30, img: KingstonFury16GB },
+    { id: 12, name: "Crucial P5 Plus 1TB", category: 'storage', brand: 'Samsung', price: 505000, rating: 4.6, reviews: 389, stock: 20, img: CrucialP5Plus1TB },
+    { id: 13, name: "ASUS ROG Strix Z790", category: 'motherboard', brand: 'ASUS', price: 1554000, rating: 4.8, reviews: 167, stock: 8, img: ASUSROGStrixZ790 },
+    { id: 14, name: "MSI MAG B650", category: 'motherboard', brand: 'MSI', price: 972000, rating: 4.7, reviews: 234, stock: 11, img: MSIMAGB650 },
+    { id: 15, name: "RTX 4090", category: 'gpu', brand: 'NVIDIA', price: 6662000, rating: 5.0, reviews: 145, stock: 3, img: RTX4090 },
+    { id: 16, name: "AMD Ryzen 9 7950X3D", category: 'cpu', brand: 'AMD', price: 1719000, rating: 4.9, reviews: 278, stock: 6, img: AMDRyzen97950X3D },
   ];
 
   // Aplicar filtros
