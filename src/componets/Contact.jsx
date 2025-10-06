@@ -122,8 +122,8 @@ function Contact() {
     },
     {
       icon: MapPin,
-      question: "¿Puedo visitar su tienda física?",
-      answer: "Sí, estamos ubicados en el centro de Cali. Te esperamos de lunes a sábado."
+      question: "¿Entregas en punto física?",
+      answer: "Sí, estamos ubicados en el sur de Cali. Te esperamos de lunes a sábado."
     }
   ];
 
@@ -132,7 +132,7 @@ function Contact() {
       
       {/* Navbar */}
       <header className="sticky top-0 z-40 backdrop-blur-lg bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center gap-2">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
@@ -146,7 +146,6 @@ function Contact() {
             <nav className="hidden md:flex items-center gap-8">
               <Link to="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</Link>
               <Link to="/Productos" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</Link>
-              <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ofertas</a>
               <Link to="/Contacto" className="text-sm font-medium text-blue-600 dark:text-blue-400">Contacto</Link>
             </nav>
 
