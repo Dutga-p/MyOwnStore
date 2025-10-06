@@ -4,13 +4,14 @@ import RTX4070TISuperAsus from '../../public/graphics_card/Asus RTX 4070 TI supe
 import AMDRyzen77800X3D from '../../public/processor/AMDRyzen77800X3D.jpg'
 import CorsairVengeance32GB from '../../public/RAM_memory/CorsairVengeance32GB.jpg'
 import Samsung990PRO2TB from '../../public/Storage/Samsung990PRO2TB.jpg'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "./hooks/useTheme";
 import { useCart } from "./hooks/useCart";
 
 function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const navigate = useNavigate();
   const { darkMode, toggleDarkMode } = useTheme();
   const { 
     cart, 
@@ -49,6 +50,10 @@ function Home() {
     { icon: CreditCard, text: "Multiples modos de pago", desc: "Nequi, Bancolombia, Efectivo" },
     { icon: Award, text: "Garantía", desc: "6 meses en productos" }
   ];
+
+  const handleButtom = () =>{
+    navigate("/Productos")
+  }
 
   return (
     <div id="main" className="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
@@ -235,7 +240,7 @@ function Home() {
               <Link href="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</Link>
               <Link to="/Productos" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</Link>
               <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ofertas</a>
-              <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</a>
+              <Link to="/Contacto" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</Link>
             </nav>
 
             {/* Actions */}
@@ -277,10 +282,10 @@ function Home() {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
             <nav className="flex flex-col p-4 gap-2">
-              <a href="#" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Inicio</a>
-              <a href="#" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Productos</a>
+              <Link to="/" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Inicio</Link>
+              <Link to="/Productos" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Productos</Link>
               <a href="#" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Ofertas</a>
-              <a href="#" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Contacto</a>
+              <Link to="/Contacto" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Contacto</Link>
             </nav>
           </div>
         )}
@@ -302,7 +307,7 @@ function Home() {
               Componentes de última generación con garantía oficial y los mejores precios del mercado
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+              <button onClick={handleButtom} className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
                 Ver catálogo completo
                 <ChevronRight size={20} />
               </button>

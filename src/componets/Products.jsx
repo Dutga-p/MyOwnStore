@@ -18,6 +18,7 @@ import ASUSROGStrixZ790 from "../../public/motherboard/ASUSROGStrixZ790.png";
 import MSIMAGB650 from "../../public/motherboard/MSIMAGB650.png";
 import RTX4090 from "../../public/graphics_card/RTX4090.png";
 import AMDRyzen97950X3D from "../../public/processor/AMDRyzen97950X3D.png";
+import { Link } from "react-router-dom";
 
 function Products() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -280,10 +281,10 @@ function Products() {
             </div>
 
             <nav className="hidden md:flex items-center gap-8">
-              <a href="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</a>
-              <a href="#" className="text-sm font-medium text-blue-600 dark:text-blue-400">Productos</a>
+              <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</Link>
+              <Link href="/Productos" className="text-sm font-medium text-blue-600 dark:text-blue-400">Productos</Link>
               <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ofertas</a>
-              <a href="#" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</a>
+              <Link to="/Contacto" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</Link>
             </nav>
 
             <div className="flex items-center gap-3">
@@ -323,10 +324,10 @@ function Products() {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
             <nav className="flex flex-col p-4 gap-2">
-              <a href="#" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Inicio</a>
-              <a href="#" className="px-4 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 transition-colors">Productos</a>
+              <Link to="/" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Inicio</Link>
+              <Link to="/Productos" className="px-4 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 transition-colors">Productos</Link>
               <a href="#" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Ofertas</a>
-              <a href="#" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Contacto</a>
+              <Link to="/Contacto" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Contacto</Link>
             </nav>
           </div>
         )}
@@ -336,7 +337,7 @@ function Products() {
       <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4">
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-            <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</a>
+            <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</Link>
             <ChevronRight size={16} />
             <span className="text-gray-900 dark:text-gray-100 font-medium">Productos</span>
           </div>

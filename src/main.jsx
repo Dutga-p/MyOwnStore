@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import Home from './componets/Home'
 import Products from './componets/Products'
+import Contact from './componets/Contact'
 import { ThemeProvider } from './componets/themes/ThemeProvider'
 import { CartProvider} from './componets/car/CartProvider'
 
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')).render(
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/productos" element={<Products />} />
+            <Route path="/contacto" element={<Contact />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>
