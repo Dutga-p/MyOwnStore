@@ -1,16 +1,29 @@
 import { useState, useRef } from "react";
-import { Sun, Moon, ShoppingCart, Search, Menu, X, MapPin, Phone, Mail, Clock, Send, MessageSquare, HeadphonesIcon, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useTheme } from "./hooks/useTheme";
-import { useCart } from "./hooks/useCart";
+import { ShoppingCart, X, Plus, Trash2, Minus, MapPin, Phone, ShoppingBag, Mail, Send, MessageSquare, HeadphonesIcon, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
 import emailjs from '@emailjs/browser';
+import Header from "../componets/Header";
+import Footer from "../componets/Footer";
+import { useTheme } from "../hooks/useTheme";
+import { useCart } from "../hooks/useCart";
 
 function Contact() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
-  const { darkMode, toggleDarkMode } = useTheme();
-  const { getCartCount } = useCart();
   const formRef = useRef(null);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { darkMode, toggleDarkMode } = useTheme();
+  const { 
+      cart, 
+      notification, 
+      removeFromCart, 
+      updateQuantity, 
+      clearCart,
+      getItemSubtotal,
+      getCartTotal,
+      getCartCount,
+      getShippingCost,
+      getFinalTotal,
+      handleCheckout
+    } = useCart();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -128,72 +141,180 @@ function Contact() {
   ];
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
-      
-      {/* Navbar */}
-      <header className="sticky top-0 z-40 backdrop-blur-lg bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                D
-              </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                DStore
-              </h1>
-            </Link>
+    <div id="main" className="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
+      {/* Notificación flotante */}
+      {notification && (
+        <div className={`fixed top-20 right-4 z-50 px-6 py-4 rounded-xl shadow-2xl border-2 animate-slide-in ${
+          notification.type === 'success' 
+            ? 'bg-green-50 dark:bg-green-900/20 border-green-500 text-green-800 dark:text-green-200' 
+            : 'bg-red-50 dark:bg-red-900/20 border-red-500 text-red-800 dark:text-red-200'
+        }`}>
+          <p className="font-medium">{notification.message}</p>
+        </div>
+      )}
 
-            <nav className="hidden md:flex items-center gap-8">
-              <Link to="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</Link>
-              <Link to="/Productos" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</Link>
-              <Link to="/Contacto" className="text-sm font-medium text-blue-600 dark:text-blue-400">Contacto</Link>
-            </nav>
+      {/* Overlay del carrito */}
+      {cartOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+          onClick={() => setCartOpen(false)}
+        />
+      )}
 
+      {/* Sidebar del carrito */}
+      <div className={`fixed top-0 right-0 h-full w-full sm:w-96 bg-white dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 ${
+        cartOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}>
+        <div className="flex flex-col h-full">
+          {/* Header del carrito */}
+          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
             <div className="flex items-center gap-3">
-              <button className="hidden md:flex p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                <Search size={20} />
+              <ShoppingCart size={24} />
+              <h2 className="text-xl font-bold">Tu Carrito</h2>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded-full">
+                {getCartCount()}
+              </span>
+            </div>
+            <button 
+              onClick={() => setCartOpen(false)}
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          {/* Items del carrito */}
+          <div className="flex-1 overflow-y-auto p-6">
+            {cart.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-full text-center">
+                <ShoppingBag size={64} className="text-gray-300 dark:text-gray-700 mb-4" />
+                <h3 className="text-lg font-semibold mb-2">Tu carrito está vacío</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Agrega productos para comenzar
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {cart.map(item => (
+                  <div key={item.id} className="flex gap-4 p-4 bg-gray-50 dark:bg-gray-950 rounded-xl border border-gray-200 dark:border-gray-800">
+                    <img 
+                      src={item.img}
+                      alt={item.name}
+                      className="w-20 h-20 rounded-lg object-cover"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-sm mb-1 truncate">{item.name}</h4>
+                      <p className="text-blue-600 dark:text-blue-400 font-bold text-sm mb-2">
+                        ${item.price.toLocaleString('es-CO')}
+                      </p>
+                      
+                      {/* Controles de cantidad */}
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="p-1 rounded-md bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+                        >
+                          <Minus size={14} />
+                        </button>
+                        <span className="w-8 text-center font-semibold text-sm">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="p-1 rounded-md bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+                        >
+                          <Plus size={14} />
+                        </button>
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="ml-auto p-1 rounded-md text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                      
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        Stock: {item.stock} unidades
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-bold text-sm">
+                        ${getItemSubtotal(item).toLocaleString('es-CO')}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+
+                {cart.length > 0 && (
+                  <button
+                    onClick={clearCart}
+                    className="w-full text-sm text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 font-medium py-2 transition-colors"
+                  >
+                    Vaciar carrito
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Resumen y checkout */}
+          {cart.length > 0 && (
+            <div className="border-t border-gray-200 dark:border-gray-800 p-6 space-y-4">
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
+                  <span className="font-semibold">${getCartTotal().toLocaleString('es-CO')}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">Envío</span>
+                  <span className="font-semibold">
+                    {getShippingCost() === 0 ? (
+                      <span className="text-green-600 dark:text-green-400">¡Gratis!</span>
+                    ) : (
+                      `$${getShippingCost().toLocaleString('es-CO')}`
+                    )}
+                  </span>
+                </div>
+                {getCartTotal() < 100 && (
+                  <p className="text-xs text-amber-600 dark:text-amber-400">
+                    Agrega ${(100 - getCartTotal()).toFixed(2)} más para envío gratis
+                  </p>
+                )}
+                <div className="flex justify-between text-base pt-2 border-t border-gray-200 dark:border-gray-800">
+                  <span className="font-bold">Total</span>
+                  <span className="font-bold text-blue-600 dark:text-blue-400">
+                    ${getFinalTotal().toLocaleString('es-CO')}
+                  </span>
+                </div>
+              </div>
+              
+              <button
+                onClick={handleCheckout}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Proceder al pago
               </button>
               
-              <button 
-                onClick={toggleDarkMode} 
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              <button
+                onClick={() => setCartOpen(false)}
+                className="w-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 py-3 rounded-xl font-medium transition-colors"
               >
-                {darkMode ? <Sun size={20}/> : <Moon size={20}/>}
-              </button>
-
-              <button 
-                onClick={() => setCartOpen(true)}
-                className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              >
-                <ShoppingCart size={20} />
-                {getCartCount() > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
-                    {getCartCount()}
-                  </span>
-                )}
-              </button>
-
-              <button 
-                className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                Seguir comprando
               </button>
             </div>
-          </div>
+          )}
         </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-            <nav className="flex flex-col p-4 gap-2">
-              <Link to="/" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Inicio</Link>
-              <Link to="/Productos" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Productos</Link>
-              <a href="#" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Ofertas</a>
-              <Link to="/Contacto" className="px-4 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 transition-colors">Contacto</Link>
-            </nav>
-          </div>
-        )}
-      </header>
+      </div>
+      
+      {/* Navbar */}
+      <Header
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+        cartCount={getCartCount()}
+        onCartOpen={() => setCartOpen(true)}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 py-20">
@@ -403,7 +524,7 @@ function Contact() {
             </div>
 
             {/* Map and FAQs */}
-            <div className="space-y-8">
+            <div id="FAQs" className="space-y-8">
               {/* Map */}
               <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden">
                 <div className="h-80 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 relative">
@@ -421,7 +542,7 @@ function Contact() {
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">Visítanos</h3>
                   <p className="text-gray-600 dark:text-gray-400 mb-4">
-                    Estamos ubicados en el centro de Cali. ¡Te esperamos!
+                    Estamos ubicados en el sur de Cali. ¡Te esperamos!
                   </p>
                   <a
                     href="https://maps.google.com"
@@ -485,56 +606,7 @@ function Contact() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-12">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                  D
-                </div>
-                <h1 className="text-xl font-bold">DStore</h1>
-              </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Tu tienda de confianza para componentes de PC de alta calidad.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Tienda</h4>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><Link to="/Productos" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</Link></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ofertas</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Novedades</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Arma tu PC</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Ayuda</h4>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><Link to="/Contacto" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</Link></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Envíos</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Garantías</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Preguntas frecuentes</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Términos y condiciones</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Política de privacidad</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Política de cookies</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-600 dark:text-gray-400">
-            <p>© 2025 DStore. Todos los derechos reservados. Hecho con ❤️ para gamers.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }

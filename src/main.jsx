@@ -2,11 +2,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
-import Home from './componets/Home'
-import Products from './componets/Products'
-import Contact from './componets/Contact'
-import { ThemeProvider } from './componets/themes/ThemeProvider'
-import { CartProvider} from './componets/car/CartProvider'
+import Home from './pages/Home'
+import Products from './pages/Products'
+import Contact from './pages/Contact'
+import TermsAndConditions from './pages/TermsAndConditions'
+import PP from './pages/PP'
+import { ThemeProvider } from './context/themes/ThemeProvider'
+import { CartProvider} from './context/car/CartProvider'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,8 +17,10 @@ createRoot(document.getElementById('root')).render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/productos" element={<Products />} />
-            <Route path="/contacto" element={<Contact />} />
+            <Route path="/Productos" element={<Products />} />
+            <Route path="/Contacto" element={<Contact />} />
+            <Route path="/TérminosYCondiciones" element={<TermsAndConditions />} />
+            <Route path="/PolíticaDePrivacidad" element={<PP />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>

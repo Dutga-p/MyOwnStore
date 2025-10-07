@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Sun, Moon, ShoppingCart, Search, Star, ChevronRight, Menu, X, Plus, Minus, Trash2, ShoppingBag, Filter, SlidersHorizontal, Grid3x3, List, ChevronDown } from "lucide-react";
-import { useTheme } from "./hooks/useTheme";
-import { useCart } from "./hooks/useCart";
+import { ShoppingCart, Search, Star, ChevronRight, Menu, X, Plus, Minus, Trash2, ShoppingBag, Filter, SlidersHorizontal, Grid3x3, List, ChevronDown } from "lucide-react";
+import { useCart } from "../hooks/useCart";
 import AsusRTX4070TISuper from '../../public/graphics_card/Asus RTX 4070 TI super.jpg'
 import AMDRyzen77800X3D from "../../public/processor/AMDRyzen77800X3D.jpg";
 import CorsairVengeance32GB from "../../public/RAM_memory/CorsairVengeance32GB.jpg";
@@ -19,11 +18,14 @@ import MSIMAGB650 from "../../public/motherboard/MSIMAGB650.png";
 import RTX4090 from "../../public/graphics_card/RTX4090.png";
 import AMDRyzen97950X3D from "../../public/processor/AMDRyzen97950X3D.png";
 import { Link } from "react-router-dom";
+import Header from "../componets/Header";
+import Footer from "../componets/Footer";
+import { useTheme } from "../hooks/useTheme";
 
 function Products() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // grid or list
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useTheme();
   const { 
@@ -268,70 +270,14 @@ function Products() {
       </div>
 
       {/* Navbar */}
-      <header className="sticky top-0 z-40 backdrop-blur-lg bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                D
-              </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                DStore
-              </h1>
-            </Link>
-
-            <nav className="hidden md:flex items-center gap-8">
-              <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</Link>
-              <Link href="/Productos" className="text-sm font-medium text-blue-600 dark:text-blue-400">Productos</Link>
-              <Link to="/Contacto" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</Link>
-            </nav>
-
-            <div className="flex items-center gap-3">
-              <button className="hidden md:flex p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                <Search size={20} />
-              </button>
-              
-              <button 
-                onClick={toggleDarkMode} 
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              >
-                {darkMode ? <Sun size={20}/> : <Moon size={20}/>}
-              </button>
-
-              <button 
-                onClick={() => setCartOpen(true)}
-                className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              >
-                <ShoppingCart size={20} />
-                {getCartCount() > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
-                    {getCartCount()}
-                  </span>
-                )}
-              </button>
-
-              <button 
-                className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-            <nav className="flex flex-col p-4 gap-2">
-              <Link to="/" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Inicio</Link>
-              <Link to="/Productos" className="px-4 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 transition-colors">Productos</Link>
-              <a href="#" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Ofertas</a>
-              <Link to="/Contacto" className="px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Contacto</Link>
-            </nav>
-          </div>
-        )}
-      </header>
-
+      <Header
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+        cartCount={getCartCount()}
+        onCartOpen={() => setCartOpen(true)}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
       {/* Breadcrumb */}
       <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4">
@@ -793,56 +739,7 @@ function Products() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-16">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-12">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                  D
-                </div>
-                <h1 className="text-xl font-bold">DStore</h1>
-              </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Tu tienda de confianza para componentes de PC de alta calidad.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Tienda</h4>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Productos</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ofertas</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Novedades</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Arma tu PC</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Ayuda</h4>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Envíos</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Garantías</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Preguntas frecuentes</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Términos y condiciones</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Política de privacidad</a></li>
-                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Política de cookies</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-600 dark:text-gray-400">
-            <p>© 2025 DStore. Todos los derechos reservados. Hecho con ❤️ para gamers.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer/>
 
       {/* Estilos para animaciones */}
       <style>{`
