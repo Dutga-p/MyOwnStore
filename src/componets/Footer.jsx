@@ -29,16 +29,6 @@ function Footer() {
                   Productos
                 </Link>
               </li>
-              <li>
-                <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  Novedades
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  Arma tu PC
-                </a>
-              </li>
             </ul>
           </div>
           
@@ -52,19 +42,14 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                <Link to="/Envíos" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                   Envíos
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                <Link to="/Garantía" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                   Garantías
-                </a>
-              </li>
-              <li>
-                <a href="#FAQs" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  Preguntas frecuentes
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -84,9 +69,9 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                <Link to="/PolíticaDeCookies" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                   Política de cookies
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

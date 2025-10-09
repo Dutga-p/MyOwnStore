@@ -1,5 +1,4 @@
-// components/Navbar.jsx
-import { Sun, Moon, ShoppingCart, Search, Menu, X } from "lucide-react";
+import { Sun, Moon, ShoppingCart, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function Header({ 
@@ -39,10 +38,6 @@ function Header({
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <button className="hidden md:flex p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-              <Search size={20} />
-            </button>
-            
             <button 
               onClick={toggleDarkMode} 
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
