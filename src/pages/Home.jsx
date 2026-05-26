@@ -4,11 +4,20 @@ import RTX4070TISuperAsus from '../../public/graphics_card/Asus RTX 4070 TI supe
 import AMDRyzen77800X3D from '../../public/processor/AMDRyzen77800X3D.jpg'
 import CorsairVengeance32GB from '../../public/RAM_memory/CorsairVengeance32GB.jpg'
 import Samsung990PRO2TB from '../../public/Storage/Samsung990PRO2TB.jpg'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import Header from "../componets/Header";
 import Footer from "../componets/Footer";
 import { useTheme } from "../hooks/useTheme";
+
+function normalizeSlug(name = '') {
+  return String(name)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
 
 function Home() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -314,10 +323,10 @@ function Home() {
               <h3 className="text-3xl font-bold mb-3">Productos destacados</h3>
               <p className="text-gray-600 dark:text-gray-400">Los más vendidos este mes</p>
             </div>
-            <button className="hidden sm:flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium hover:gap-3 transition-all">
+            <Link to="/Productos" className="hidden sm:flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium hover:gap-3 transition-all">
               Ver todos
               <ChevronRight size={20} />
-            </button>
+            </Link>
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -326,7 +335,7 @@ function Home() {
                 key={product.id} 
                 className="group bg-gray-50 dark:bg-gray-950 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:shadow-2xl hover:scale-105 transition-all duration-300"
               >
-                <div className="relative aspect-square bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 overflow-hidden">
+                <Link to={`/Productos/${normalizeSlug(product.name)}`} className="block relative aspect-square bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 overflow-hidden">
                   <img 
                     src={product.img} 
                     alt={product.name}
@@ -341,10 +350,14 @@ function Home() {
                       ¡Últimas {product.stock} unidades!
                     </div>
                   )}
-                </div>
+                </Link>
                 
                 <div className="p-5">
-                  <h4 className="font-bold text-lg mb-2 line-clamp-1">{product.name}</h4>
+                  <h4 className="font-bold text-lg mb-2 line-clamp-1">
+                    <Link to={`/Productos/${normalizeSlug(product.name)}`} className="hover:underline">
+                      {product.name}
+                    </Link>
+                  </h4>
                   
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex items-center gap-1">

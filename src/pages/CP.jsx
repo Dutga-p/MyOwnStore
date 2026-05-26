@@ -9,7 +9,8 @@ function CP() {
   const { darkMode, toggleDarkMode } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [notification2, setNotification2] = useState(null);
+  const [_notification2, setNotification2] = useState(null);
+
   const [cookiePreferences, setCookiePreferences] = useState({
     necessary: true,
     functional: true,

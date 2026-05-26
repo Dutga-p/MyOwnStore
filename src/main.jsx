@@ -8,7 +8,9 @@ import Contact from './pages/Contact'
 import TermsAndConditions from './pages/TermsAndConditions'
 import PP from './pages/PP'
 import CP from './pages/CP'
+import ProductDetails from './pages/ProductDetails'
 import Shipping from './pages/Shipping'
+
 import Warranty from './pages/Warranty'
 import { ThemeProvider } from './context/themes/ThemeProvider'
 import { CartProvider} from './context/car/CartProvider'
@@ -25,7 +27,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/TérminosYCondiciones" element={<TermsAndConditions />} />
             <Route path="/PolíticaDePrivacidad" element={<PP />} />
             <Route path="/PolíticaDeCookies" element={<CP />} />
-            <Route path="/PolíticaDeCookies" element={<CP />} />
+            <Route path="/Productos/:slug" element={<ProductDetails />} />
             <Route path="/Envíos" element={<Shipping />} />
             <Route path="/Garantía" element={<Warranty />} />
           </Routes>

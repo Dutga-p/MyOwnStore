@@ -17,10 +17,19 @@ import ASUSROGStrixZ790 from "../../public/motherboard/ASUSROGStrixZ790.png";
 import MSIMAGB650 from "../../public/motherboard/MSIMAGB650.png";
 import RTX4090 from "../../public/graphics_card/RTX4090.png";
 import AMDRyzen97950X3D from "../../public/processor/AMDRyzen97950X3D.png";
-import { Link } from "react-router-dom";
 import Header from "../componets/Header";
 import Footer from "../componets/Footer";
 import { useTheme } from "../hooks/useTheme";
+import { Link } from "react-router-dom";
+
+function normalizeSlug(name = '') {
+  return String(name)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
 
 function Products() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -600,7 +609,7 @@ function Products() {
                     key={product.id} 
                     className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:shadow-2xl hover:scale-105 transition-all duration-300"
                   >
-                    <div className="relative aspect-square bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 overflow-hidden">
+                    <Link to={`/Productos/${normalizeSlug(product.name)}`} className="block relative aspect-square bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 overflow-hidden">
                       <img 
                         src={product.img} 
                         alt={product.name}
@@ -615,10 +624,15 @@ function Products() {
                           ¡Últimas {product.stock} unidades!
                         </div>
                       )}
-                    </div>
+                    </Link>
                     
                     <div className="p-5">
-                      <h4 className="font-bold text-lg mb-2 line-clamp-1">{product.name}</h4>
+                      <h4 className="font-bold text-lg mb-2 line-clamp-1">
+                        <Link to={`/Productos/${normalizeSlug(product.name)}`} className="hover:underline">
+                          {product.name}
+                        </Link>
+                      </h4>
+
                       
                       <div className="flex items-center gap-2 mb-3">
                         <div className="flex items-center gap-1">
@@ -666,7 +680,7 @@ function Products() {
                     className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:shadow-xl transition-all duration-300"
                   >
                     <div className="flex flex-col sm:flex-row gap-6 p-6">
-                      <div className="relative w-full sm:w-48 h-48 flex-shrink-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 rounded-xl overflow-hidden">
+                      <Link to={`/Productos/${normalizeSlug(product.name)}`} className="block relative w-full sm:w-48 h-48 flex-shrink-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 rounded-xl overflow-hidden">
                         <img 
                           src={product.img} 
                           alt={product.name}
@@ -681,11 +695,15 @@ function Products() {
                             ¡Últimas {product.stock}!
                           </div>
                         )}
-                      </div>
+                      </Link>
 
                       <div className="flex-1 flex flex-col justify-between">
                         <div>
-                          <h4 className="font-bold text-xl mb-2">{product.name}</h4>
+                          <h4 className="font-bold text-xl mb-2">
+                            <Link to={`/Productos/${normalizeSlug(product.name)}`} className="hover:underline">
+                              {product.name}
+                            </Link>
+                          </h4>
                           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                             {product.brand} • {categories.find(c => c.id === product.category)?.name}
                           </p>
